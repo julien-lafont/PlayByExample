@@ -16,11 +16,13 @@ object Tag extends Function1[String, Tag]{
 
   val hash = "#"
 
+  def create(name: String) = Tag(name.toLowerCase)
+
   object TagParser extends RegexParsers {
 
     def hash: Parser[String] = Tag.hash
     def hashname: Parser[String] = """[a-zA-Z0-9._]+""".r
-    def hashtag: Parser[Tag] = hash ~> hashname ^^ { t => Tag(t) }
+    def hashtag: Parser[Tag] = hash ~> hashname ^^ { t => Tag.create(t) }
     def excapedHash: Parser[String] = hash ~ hash ^^ { _ => Tag.hash }
     def content: Parser[String] = ("""[^"""+Tag.hash+"""]+""").r
     def string: Parser[Seq[Either[String, Tag]]] = (excapedHash ^^ { Left(_) } | hashtag ^^ { Right(_) } | content ^^ { Left(_) } )*
