@@ -4,7 +4,7 @@ import play.api.libs.ws._
 import services.auth.OAuth2Token
 import play.api.libs.ws.WS.WSRequestHolder
 import play.api.libs.concurrent.Execution.Implicits._
-import play.api.libs.json.Json
+import play.api.libs.json._
 import concurrent.Future
 
 object GithubWS {
@@ -57,6 +57,24 @@ object GithubWS {
           case 201 => (result.json \ "id").asOpt[String].map(_.toLong)
           case _ => None
         })
+    }
+
+    def star(gistId: Long)(implicit token: OAuth2Token) = {
+      fetch(s"/gists/$gistId/star").put("")
+    }
+
+    def unstar(gistId: Long)(implicit token: OAuth2Token) = {
+      fetch(s"/gists/$gistId/star").delete()
+    }
+
+    def get(gistId: Long)(implicit token: OAuth2Token) = {
+      fetch(s"/gists/$gistId").get.map(_.json)
+    }
+
+    def forksId(gistId: Long)(implicit token: OAuth2Token) = {
+      get(gistId).map(json =>
+        (json \ "forks").as[JsArray].value.map(fork =>
+          (fork \ "id").as[String].toLong))
     }
   }
 

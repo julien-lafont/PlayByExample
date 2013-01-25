@@ -14,15 +14,4 @@ object Application extends GithubOAuthController {
     Ok(views.html.index())
   }
 
-  def testGithub = Authenticated { implicit request =>
-    Async {
-
-      // Return user details
-      //GithubWS.User.me.map(Ok(_))
-
-      // Create new gist
-      GithubWS.Gist.create("My awesome question", "scala", "YoTsumi").map(r =>
-        Ok(r.map("Gist ID = "+_).getOrElse("Cannot create gist")))
-    }
-  }
 }

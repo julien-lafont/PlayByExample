@@ -7,8 +7,9 @@ GET     /                              controllers.Application.main
 GET     /index                         controllers.Application.index
 GET     /auth                          controllers.Application.authenticate
 
-# TEST
-GET     /testGH                        controllers.Application.testGithub
+# API Github
+#GET     /api/gistDetail/:id           controllers.Api.gistInfo(id: String)
+GET      /api/listGists/:id            controllers.Api.listGistsWithForks(id: Long)
 
 # QUESTIONS
 GET     /api/questions/:id             controllers.Questions.get(id: String)
