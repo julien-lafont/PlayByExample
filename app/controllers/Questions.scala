@@ -19,6 +19,14 @@ object Questions extends Controller {
     (__ \ 'lang).read[String]
   ).tupled
 
+  def list = Action {
+    Ok(views.html.questions.list())
+  }
+
+  def add = Action {
+    Ok(views.html.questions.create())
+  }
+
   def create = Action(parse.json){ request =>
     
     request.body.validate(createReads).map{ case (author, title, play, lang) =>

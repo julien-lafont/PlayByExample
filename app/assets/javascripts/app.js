@@ -7,8 +7,12 @@ var app = angular.module('app', ['ngResource', 'ui', 'ui.bootstrap'])
                 templateUrl: 'index',
                 controller: 'MainCtrl'
             })
+            .when('/questions', {
+              templateUrl: '/api/questions',
+              controller: 'QuestionCtrl'
+            })
             .when('/questions/add', {
-                templateUrl: '/api/questions',
+                templateUrl: '/api/questions/add',
                 controller: 'QuestionCtrl'
             })
             .otherwise({
