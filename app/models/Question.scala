@@ -68,7 +68,6 @@ object Question extends Function6[String, String, String, Seq[Tag], DateTime, Da
 
   def insert(q: Question)(implicit ex: ExecutionContext): Future[LastError] = {
     val js = Json.toJson(q)(fmt)
-    println("js: "+ js.transform(transformer))
     js.transform(transformer).map{ js =>
       coll.insert(js)
     }.recoverTotal{ e =>
