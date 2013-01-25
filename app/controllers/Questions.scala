@@ -1,16 +1,18 @@
 package controllers
 
+import scala.concurrent.Future
+
 import play.api._
 import play.api.mvc._
 
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
+import services.github._
 import models._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
-
-object Questions extends Controller {
+object Questions extends GithubOAuthController {
 
   val createReads = (
     (__ \ 'author).read[String] and
@@ -27,20 +29,21 @@ object Questions extends Controller {
     Ok(views.html.questions.create())
   }
 
-  def create = Action(parse.json){ request =>
-    
-    request.body.validate(createReads).map{ case (author, title, play, lang) =>
-      // TODO create gist
-
-      val gistId = ""
-      val tags = Seq(Tag(play), Tag(lang))
-      val q = Question(author, title, gistId, tags)
-
+  def create = Authenticated { implicit request =>
+    request.body.asJson.get.validate(createReads).map{ case (author, title, play, lang) =>
       Async{
-        Question.insert(q).map { lasterror =>
-          Ok(Json.obj("status" -> "OK"))
-        }.recover{ case e => 
-          InternalServerError( Json.obj("status" -> "OK", "error" -> "mongo exception %s".format(e.getMessage) ) )
+        GithubWS.Gist.create(title, lang, author).flatMap{
+          case Some(id) =>
+            val tags = Seq(Tag(play), Tag(lang))
+            val q = Question(author, title, id, tags)
+            Question.insert(q).map { lasterror =>
+              Ok(Json.obj("status" -> "OK"))
+            }.recover{ case e => 
+              InternalServerError( Json.obj("status" -> "OK", "error" -> "mongo exception %s".format(e.getMessage) ) )
+            }
+          case None => Future.successful(InternalServerError( Json.obj("status" -> "OK", "error" -> "couldn't create Gist" ) ))
+        }.recover{ 
+          case e => BadRequest(Json.obj("status" -> "KO", "error" -> e.getMessage))
         }
       }
     }.recoverTotal{ e =>

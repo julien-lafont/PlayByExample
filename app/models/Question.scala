@@ -19,7 +19,7 @@ import play.api.libs.functional.syntax._
 import play.api.Play.current
 
 case class Question(
-  authorID: GHID,
+  authorID: GHAuthorID,
   title: String,
   gistID: GHGistID,
   tags: Seq[Tag] = Seq(),
@@ -27,7 +27,7 @@ case class Question(
   updatedAt: DateTime = DateTime.now
 )
 
-object Question extends Function6[String, String, String, Seq[Tag], DateTime, DateTime, Question] {
+object Question extends Function6[GHAuthorID, String, GHGistID, Seq[Tag], DateTime, DateTime, Question] {
   val db = ReactiveMongoPlugin.db
   lazy val coll = db("questions")
 

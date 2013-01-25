@@ -1,7 +1,7 @@
 package object models {
 
-  type GHID = String
-  type GHUserID = GHID
-  type GHGistID = GHID
+  type GHAuthorID = String
+  type GHUserID = Long
+  type GHGistID = Long
 
 }
