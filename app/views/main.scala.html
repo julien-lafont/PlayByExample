@@ -12,8 +12,21 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
     </head>
     <body data-ng-app="app">
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="span6">
+                        <h1>Play By Example</h1>
+                    </div>
 
-        <div class="container">
+                    <div class="span6">
+                        user
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="view" class="container">
             <div data-ng-view="view"></div>
         </div>
 

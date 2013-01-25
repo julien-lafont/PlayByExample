@@ -3,9 +3,10 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.main
-GET     /index                      controllers.Application.index
-GET     /auth                       controllers.Application.authenticate
+GET     /                              controllers.Application.main
+GET     /index                         controllers.Application.index
+GET     /api/questions                 controllers.Application.add
+GET     /auth                          controllers.Application.authenticate
 
 # TEST
 GET     /testGH                     controllers.Application.testGithub
