@@ -8,8 +8,8 @@ GET     /index                         controllers.Application.index
 GET     /auth                          controllers.Application.authenticate
 
 # API Github
-#GET     /api/gistDetail/:id           controllers.Api.gistInfo(id: String)
-GET      /api/listGists/:id            controllers.Api.listGistsWithForks(id: Long)
+GET      /api/gists/listForks/:id      controllers.Api.listForks(id: Long)
+GET      /api/gists/question/:id       controllers.Api.getQuestion(id: Long)
 
 # QUESTIONS
 GET     /api/questions/create          controllers.Questions.createView
