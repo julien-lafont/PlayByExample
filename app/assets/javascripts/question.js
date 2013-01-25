@@ -25,10 +25,10 @@ app.controller('QuestionCtrl', ['$scope', '$routeParams', 'question', function($
   if ($routeParams.id) {
     $scope.question = question.get({id: $routeParams.id},
       function() {
-        console.log("SUCCESS"+$routeParams.id);
+
       },
       function() {
-        console.log("FAIL"+$routeParams.id);
+
       }
     )
   }
