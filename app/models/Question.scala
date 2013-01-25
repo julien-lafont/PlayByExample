@@ -47,6 +47,4 @@ object Question extends Function6[GHAuthorID, String, GHGistID, Seq[Tag], DateTi
     }
   }
 
-  def fetchTag(q: Question): Seq[Tag] = Tag.fetchTags(q.title)
-
 }
