@@ -38,6 +38,10 @@ object Question extends Function6[GHAuthorID, String, GHGistID, Seq[Tag], DateTi
 
   val transformer = __.json.update( (generateId and dateToMongo("createdAt") and dateToMongo("updatedAt")).reduce )
 
+  def create(authorID: GHAuthorID, title: String, id: GHGistID, tags: Seq[String]): Question = {
+    apply(authorID, title, id, tags.map(Tag.create(_)) ++ Tag.fetchTags(title))
+  }
+
   def insert(q: Question)(implicit ex: ExecutionContext): Future[LastError] = {
     val js = Json.toJson(q)(fmt)
     js.transform(transformer).map{ js =>
