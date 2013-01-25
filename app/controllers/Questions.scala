@@ -34,7 +34,7 @@ object Questions extends GithubOAuthController {
     Ok(views.html.questions.list())
   }
 
-  def createView = Action {
+  def createView = Authenticated { implicit request =>
     Ok(views.html.questions.create())
   }
 
