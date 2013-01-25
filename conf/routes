@@ -3,7 +3,8 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET     /                           controllers.Application.main
+GET     /index                      controllers.Application.index
 GET     /auth                       controllers.Application.authenticate
 
 # TEST
