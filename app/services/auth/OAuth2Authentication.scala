@@ -89,7 +89,7 @@ trait OAuth2Authentication {
       "client_id"       -> oauth2info.clientId,
       "redirect_uri"    -> authenticateCall.absoluteURL(false),
       "state"           -> csrf,
-      "scope"           -> "",
+      "scope"           -> oauth2info.scope,
       "response_type"   -> "code")
     val url = redirectQueryString.foldLeft(oauth2info.urlAuthorize+"?")((url, qs) => url + qs._1+"="+qs._2+"&")
     logger.trace(s"Redirect to login page: $url")
