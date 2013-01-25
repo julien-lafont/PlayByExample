@@ -25,10 +25,7 @@ object Questions extends GithubOAuthController {
     Ok(views.html.questions.read())
   }
 
-  def get(id: String) = Action { request =>
-    // TODO: get question from GitHub
-    Ok(Json.obj("title" -> "Test", "play" -> "2.1.RC2", "lang" -> "scala", "author" -> "Someone"))
-  }
+  def get(id: Long) = Api.getQuestion(id)
 
   def listView = Action {
     Ok(views.html.questions.list())

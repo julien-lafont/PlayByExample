@@ -13,7 +13,7 @@ GET      /api/gists/question/:id       controllers.Api.getQuestion(id: Long)
 
 # QUESTIONS
 GET     /api/questions/create          controllers.Questions.createView
-GET     /api/questions/:id             controllers.Questions.get(id: String)
+GET     /api/questions/:id             controllers.Questions.get(id: Long)
 PUT     /api/questions                 controllers.Questions.create
 GET     /api/questions                 controllers.Questions.listView
 GET     /api/question                  controllers.Questions.readView
