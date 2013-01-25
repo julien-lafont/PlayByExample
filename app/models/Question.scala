@@ -1,6 +1,6 @@
 package models
 
-type GHGistID = GHID
+import org.joda.time._
 
 case class Question(
   authorID: GHID,
@@ -10,3 +10,5 @@ case class Question(
   createdAt: DateTime,
   updatedAt: DateTime
 )
+
+case class Tag(name: String) extends AnyVal
