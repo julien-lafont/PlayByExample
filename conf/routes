@@ -12,8 +12,8 @@ GET     /auth                          controllers.Application.authenticate
 GET      /api/listGists/:id            controllers.Api.listGistsWithForks(id: Long)
 
 # QUESTIONS
-GET     /api/questions/:id             controllers.Questions.get(id: String)
 GET     /api/questions/create          controllers.Questions.createView
+GET     /api/questions/:id             controllers.Questions.get(id: String)
 PUT     /api/questions                 controllers.Questions.create
 GET     /api/questions                 controllers.Questions.listView
 GET     /api/question                  controllers.Questions.readView
