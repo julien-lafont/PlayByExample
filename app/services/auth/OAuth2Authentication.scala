@@ -12,12 +12,6 @@ sealed case class AuthenticatedRequest(token: OAuth2Token, private val request: 
 trait OAuth2Authentication {
   self: Controller with OAuth2Configuration =>
 
-  object Ws {
-    def url(url: String)(implicit request: AuthenticatedRequest) = {
-      WS.url(url).withQueryString("access_token" -> request.token.accessToken).withHeaders("Accept" -> "application/json")
-    }
-  }
-
   private lazy val logger = Logger("services.auth.OAuth2Authentication")
   private val sessionKeyToken = "oauth2token"
   private val sessionKeyCsrf = "oauth2csrf"

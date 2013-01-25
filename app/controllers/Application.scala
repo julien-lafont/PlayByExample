@@ -2,7 +2,8 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import services.github._
+import play.api.libs.concurrent.Execution.Implicits._
 
 object Application extends GithubOAuthController {
 
@@ -12,7 +13,7 @@ object Application extends GithubOAuthController {
 
   def testGithub = Authenticated { implicit request =>
     Async {
-      Ws.url("https://api.github.com/users/studiodev/gists").get.map(r => Ok(r.json))
+      GithubWS.User.me.map(Ok(_))
     }
   }
 
