@@ -4,16 +4,20 @@ var app = angular.module('app', ['ngResource', 'ui', 'ui.bootstrap'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'index',
+                templateUrl: '/index',
                 controller: 'MainCtrl'
+            })
+            .when('/questions/create', {
+                templateUrl: '/api/questions/create',
+                controller: 'QuestionCtrl'
+            })
+            .when('/questions/:id', {
+              templateUrl: '/api/question',
+              controller: 'QuestionCtrl'
             })
             .when('/questions', {
               templateUrl: '/api/questions',
               controller: 'QuestionCtrl'
-            })
-            .when('/questions/add', {
-                templateUrl: '/api/questions/add',
-                controller: 'QuestionCtrl'
             })
             .otherwise({
                 redirectTo: '/'

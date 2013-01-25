@@ -1,18 +1,18 @@
-@txt(name: String, label: String, t: String = "text", placeholder: Option[String] = None) = {
+@txt(name: String, label: String, model: String, t: String = "text", placeholder: Option[String] = None) = {
   <div class="control-group">
     <label class="control-label" for="@name">@label</label>
     <div class="controls">
-      <input type="@t" id="@name" name="@name" placeholder="@placeholder">
+      <input type="@t" id="@name" name="@name" placeholder="@placeholder" data-ng-model="@model">
     </div>
   </div>
 }
 
 <h2>What's your problem?</h2>
 
-<form class="form-horizontal">
-  @txt("question", "Question")
-  @txt("version", "Play version")
-  @txt("lang", "Lang")
+<form class="form-horizontal" data-ng-submit="create()">
+  @txt("title", "Question", "newQuestion.title")
+  @txt("play", "Play version", "newQuestion.play")
+  @txt("lang", "Lang", "newQuestion.lang")
 
   <button class="btn btn-primary">Submit</button>
 </form>

@@ -10,10 +10,12 @@ GET     /auth                          controllers.Application.authenticate
 # TEST
 GET     /testGH                        controllers.Application.testGithub
 
-# QUESTIOn
-GET     /api/questions                 controllers.Questions.list
-GET     /api/questions/add             controllers.Questions.add
+# QUESTIONS
+GET     /api/questions/:id             controllers.Questions.get(id: String)
+GET     /api/questions/create          controllers.Questions.createView
 PUT     /api/questions                 controllers.Questions.create
+GET     /api/questions                 controllers.Questions.listView
+GET     /api/question                  controllers.Questions.readView
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
