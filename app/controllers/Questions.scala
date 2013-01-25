@@ -43,7 +43,7 @@ object Questions extends GithubOAuthController {
       Async{
         GithubWS.Gist.create(title, lang, author).flatMap{
           case Some(id) =>
-            val q = Question.create(author, title, id, tags = Seq(play, lang))
+            val q = Question.create(author, title, id, tags = Seq("play-"+play, lang))
             Question.insert(q).map { lasterror =>
               Ok(Json.obj("status" -> "OK"))
             }.recover{ case e => 
